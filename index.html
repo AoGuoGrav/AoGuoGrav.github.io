@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ao Guo is a theoretical physicist researching strong gravity, numerical relativity, and gravitational waves.">
+    <link rel="canonical" href="https://gravao.github.io/">
+    <meta property="og:title" content="Ao Guo | Strong Gravity &amp; Gravitational Waves">
+    <meta property="og:description" content="Theoretical physics research in strong gravity, numerical relativity, and gravitational waves.">
+    <meta property="og:url" content="https://gravao.github.io/">
+    <title>Ao Guo | Strong Gravity &amp; Gravitational Waves</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #FF6584;
+            --accent-color: #36D1DC;
+            --dark-color: #1A1A2E;
+            --light-color: #F8F9FA;
+            --gray-color: #6C757D;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #36D1DC 100%);
+            --gradient-secondary: linear-gradient(135deg, #FF6584 0%, #FFC107 100%);
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 3px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(108, 99, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 101, 132, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(54, 209, 220, 0.05) 0%, transparent 30%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 右上角控制面板 - 包含语言切换和导航菜单 */
+        .top-controls {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* 语言切换按钮 - 在导航菜单左侧 */
+        .language-switcher {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: var(--card-bg);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            color: var(--dark-color);
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .lang-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        /* 全局悬浮下拉菜单 */
+        .global-menu-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        /* 主菜单按钮 */
+        .global-menu-toggle {
+            background: var(--card-bg);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+            color: var(--dark-color);
+            z-index: 2001;
+        }
+
+        .global-menu-toggle:hover {
+            transform: translateY(-3px);
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        /* 全局下拉菜单 */
+        .global-dropdown-menu {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            z-index: 2000;
+            overflow: hidden;
+        }
+
+        /* 鼠标悬停自动展开 */
+        .global-menu-container:hover .global-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .global-menu-container:focus-within .global-dropdown-menu,
+        .global-menu-container.menu-open .global-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .global-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .global-dropdown-menu a:hover {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+            padding-left: 25px;
+        }
+
+        .global-dropdown-menu a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* 首页欢迎区 */
+        .homepage {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 120px max(32px, 8vw) 70px;
+            position: relative;
+        }
+
+        .homepage-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(4, 14, 52, 0.74), rgba(4, 14, 52, 0.82)),
+                url("static/assets/img/homepage-black-hole.jpg");
+            background-position: center;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .homepage-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 280px;
+            align-items: center;
+            gap: clamp(48px, 10vw, 160px);
+            width: min(1120px, 100%);
+            margin: 0 auto 70px;
+        }
+
+        .home-intro {
+            max-width: 760px;
+        }
+
+        .home-kicker {
+            margin: 0 0 20px;
+            color: #8fe9f4;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.32em;
+        }
+
+        .home-intro h1 {
+            margin: 0 0 24px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2.7rem, 5vw, 4.8rem);
+            line-height: 1.08;
+        }
+
+        .home-intro .title {
+            margin-bottom: 18px;
+            color: #a9f0f7;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .home-intro > p:not(.home-kicker) {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 1.12rem;
+            line-height: 1.8;
+        }
+
+        .home-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 28px;
+        }
+
+        .home-actions .social-links {
+            margin: 0;
+        }
+
+        .homepage .avatar-container {
+            width: 280px;
+            height: 280px;
+            margin: 0;
+        }
+
+        .home-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 28px;
+            width: min(1120px, 100%);
+            margin: 0 auto;
+        }
+
+        .home-link-card {
+            display: grid;
+            place-items: center;
+            aspect-ratio: 1 / 0.78;
+            gap: 14px;
+            border-radius: 3px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .home-link-card i {
+            font-size: 2rem;
+        }
+
+        .home-link-card:hover,
+        .home-link-card:focus-visible {
+            color: white;
+            transform: translateY(-7px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .research-link,
+        .hobbies-link {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .research-link {
+            background-image:
+                linear-gradient(rgba(28, 39, 95, 0.62), rgba(44, 109, 139, 0.70)),
+                url("static/assets/img/academic-binary.svg");
+        }
+
+        .hobbies-link {
+            background-image:
+                linear-gradient(rgba(85, 32, 78, 0.56), rgba(169, 58, 105, 0.62)),
+                url("https://unsplash.com/photos/YlCO5hdzUWI/download?force=true&w=1200");
+        }
+
+        .contact-link { background: linear-gradient(135deg, #345f9a, #778fc8); }
+        .cv-card { background: linear-gradient(135deg, #46747f, #67b6b3); }
+
+        /* 头像动画容器 - 带黑洞环绕 */
+        .avatar-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin-bottom: 50px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid rgba(255, 255, 255, 0.8);
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 双黑洞互绕动画 */
+        .binary-system {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 360px;
+            height: 360px;
+            margin: -180px;
+            z-index: 12;
+            pointer-events: none;
+            animation: binary-orbit 9s linear infinite;
+        }
+
+        .black-hole {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 34px;
+            height: 34px;
+            margin: -17px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #000000, #1a1a1a, #333333);
+            box-shadow:
+                0 0 25px rgba(0, 0, 0, 0.9),
+                inset 0 0 15px rgba(255, 255, 255, 0.1);
+            filter: blur(0.5px);
+        }
+
+        .black-hole-1 {
+            transform: translateX(160px);
+        }
+
+        .black-hole-2 {
+            transform: translateX(-160px);
+        }
+
+        @keyframes binary-orbit {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .avatar-container:hover .binary-system {
+            animation-duration: 5s;
+        }
+
+        /* 头像光晕效果 */
+        .avatar-glow {
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            right: -30px;
+            bottom: -30px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(108, 99, 255, 0.15) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        /* 引力效果线 */
+        .gravity-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1px;
+            height: 0;
+            background: linear-gradient(to bottom, transparent, rgba(108, 99, 255, 0.3), transparent);
+            transform-origin: top center;
+            z-index: 2;
+        }
+
+        .gravity-line-1 {
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: gravity-line 3s ease-in-out infinite;
+        }
+
+        .gravity-line-2 {
+            transform: translate(-50%, -50%) rotate(120deg);
+            animation: gravity-line 3s ease-in-out infinite 1s;
+        }
+
+        .gravity-line-3 {
+            transform: translate(-50%, -50%) rotate(240deg);
+            animation: gravity-line 3s ease-in-out infinite 2s;
+        }
+
+        @keyframes gravity-line {
+            0%, 100% { height: 0; opacity: 0; }
+            50% { height: 150px; opacity: 0.5; }
+        }
+
+        /* 主页内容 */
+        .home-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .home-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+
+        .home-content .title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--gray-color);
+            font-weight: 500;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .home-content p {
+            margin-bottom: 35px;
+            color: var(--dark-color);
+            font-size: 1.1rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 社交链接 */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cv-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .cv-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .hobby-photo-slot {
+            display: grid;
+            place-items: center;
+            aspect-ratio: 4 / 3;
+            margin-top: 18px;
+            border: 1px dashed rgba(108, 99, 255, 0.45);
+            border-radius: var(--border-radius);
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        #hobby-page.active {
+            display: block;
+        }
+
+        .hobby-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            align-items: start;
+        }
+
+        /* 页面内容区域 */
+        .page-content {
+            display: none;
+            padding: 100px 0 60px;
+            min-height: 100vh;
+            background-color: var(--light-color);
+            position: relative;
+        }
+
+        .page-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .page-header p {
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* 页面返回按钮 */
+        .page-back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: var(--card-bg);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            color: var(--dark-color);
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        .page-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        /* 卡片样式 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card:hover::before {
+            width: 8px;
+        }
+
+        .card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i {
+            color: var(--primary-color);
+        }
+
+        /* 学术项目列表 */
+        .research-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .research-item:last-child {
+            border-bottom: none;
+        }
+
+        .research-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--dark-color);
+        }
+
+        .research-year {
+            display: inline-block;
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .research-desc {
+            color: var(--gray-color);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .publication-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .publication-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .publication-item::before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .publication-title {
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .publication-authors {
+            color: var(--gray-color);
+            font-size: 0.95rem;
+        }
+
+        .publication-journal {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .publication-links {
+            margin-top: 5px;
+        }
+
+        .publication-link {
+            display: inline-block;
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            margin-right: 10px;
+            margin-top: 5px;
+            transition: var(--transition);
+        }
+
+        .publication-link:hover {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        /* 技能标签 */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* 教育时间线 */
+        .education-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .education-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient-primary);
+        }
+
+        .education-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+        }
+
+        .education-period {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .education-degree {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .education-school {
+            color: var(--gray-color);
+        }
+
+        /* Academic page: wider reading layout */
+        .academic-container {
+            max-width: 1440px;
+        }
+
+        .academic-grid {
+            grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.85fr);
+            gap: 26px;
+            align-items: start;
+        }
+
+        .academic-grid .card {
+            padding: 34px 38px;
+        }
+
+        .academic-grid .card:hover {
+            transform: none;
+        }
+
+        .academic-grid .research-card,
+        .academic-grid .outreach-card {
+            grid-column: 1 / -1;
+        }
+
+        .academic-grid .research-card {
+            padding: 38px 44px;
+        }
+
+        .research-card .research-item {
+            display: grid;
+            grid-template-columns: 74px minmax(0, 1fr);
+            column-gap: 18px;
+            margin-bottom: 22px;
+            padding-bottom: 22px;
+        }
+
+        .research-card .research-year {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+            align-self: start;
+            margin: 2px 0 0;
+            text-align: center;
+        }
+
+        .research-card .research-title,
+        .research-card .research-desc {
+            grid-column: 2;
+        }
+
+        .research-card .research-title {
+            margin-bottom: 6px;
+        }
+
+        .research-card .research-outputs {
+            grid-column: 2;
+            margin-top: 2px;
+        }
+
+        .research-card .research-desc {
+            max-width: 100ch;
+            margin-bottom: 0;
+            line-height: 1.75;
+        }
+
+        .publication-card .publication-item {
+            margin-bottom: 22px;
+            padding-left: 22px;
+        }
+
+        .publication-card .publication-title {
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .achievements-card .research-item {
+            margin-bottom: 18px;
+            padding-bottom: 16px;
+        }
+
+        .academic-grid ul {
+            line-height: 1.7;
+        }
+
+        /* 页脚 */
+        footer {
+            margin-top: 60px;
+            padding: 26px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.08), rgba(54, 209, 220, 0.08));
+            border-top: 1px solid rgba(108, 99, 255, 0.16);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--gray-color);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .academic-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .academic-grid .research-card,
+            .academic-grid .outreach-card {
+                grid-column: auto;
+            }
+
+            .home-content h1 {
+                font-size: 2.8rem;
+            }
+
+            .avatar-container {
+                width: 240px;
+                height: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .homepage {
+                padding: 110px 24px 50px;
+            }
+
+            .homepage-inner {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                margin-bottom: 48px;
+            }
+
+            .home-intro h1 {
+                font-size: 2.65rem;
+            }
+
+            .homepage .avatar-container {
+                width: 220px;
+                height: 220px;
+                justify-self: center;
+            }
+
+            .home-links {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .home-link-card {
+                aspect-ratio: 2 / 1;
+            }
+
+            .academic-grid .card,
+            .academic-grid .research-card {
+                padding: 28px 24px;
+            }
+
+            .research-card .research-item {
+                grid-template-columns: 1fr;
+                row-gap: 8px;
+            }
+
+            .research-card .research-year,
+            .research-card .research-title,
+            .research-card .research-desc,
+            .research-card .research-outputs {
+                grid-column: 1;
+            }
+
+            .research-card .research-year {
+                grid-row: auto;
+                justify-self: start;
+            }
+
+            .top-controls {
+                top: 20px;
+                right: 20px;
+                flex-direction: column-reverse;
+                align-items: flex-end;
+                gap: 10px;
+            }
+
+            .language-switcher {
+                order: 2;
+            }
+
+            .global-menu-container {
+                order: 1;
+            }
+
+            .page-back-btn {
+                top: 20px;
+                left: 20px;
+            }
+
+            .home-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .home-content .title {
+                font-size: 1.2rem;
+            }
+
+            .avatar-container {
+                width: 220px;
+                height: 220px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .binary-system {
+                top: 50%;
+                left: 50%;
+                width: 280px;
+                height: 280px;
+                margin: -140px;
+            }
+
+            .binary-system .black-hole {
+                width: 28px;
+                height: 28px;
+                margin: -14px;
+            }
+
+            .binary-system .black-hole-1 {
+                transform: translateX(124px);
+            }
+
+            .binary-system .black-hole-2 {
+                transform: translateX(-124px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 右上角控制面板 - 包含语言切换和导航菜单 -->
+    <div class="top-controls">
+        <!-- 语言切换按钮 - 在导航菜单左侧 -->
+        <div class="language-switcher">
+            <button type="button" class="lang-btn active" id="lang-en" aria-pressed="true">
+                <i class="fas fa-globe" aria-hidden="true"></i> English
+            </button>
+            <button type="button" class="lang-btn" id="lang-zh" aria-pressed="false">
+                <i class="fas fa-language" aria-hidden="true"></i> 中文
+            </button>
+        </div>
+
+        <!-- 全局悬浮下拉菜单 -->
+        <nav class="global-menu-container" aria-label="Primary navigation">
+            <button type="button" class="global-menu-toggle" id="globalMenuToggle" aria-controls="globalDropdownMenu" aria-expanded="false">
+                <i class="fas fa-bars" aria-hidden="true"></i> <span id="nav-text">Navigation</span>
+            </button>
+
+            <div class="global-dropdown-menu" id="globalDropdownMenu">
+                <a href="#" data-page="homepage">
+                    <i class="fas fa-home"></i> <span data-lang="home">Home</span>
+                </a>
+                <a href="#" data-page="academic">
+                    <i class="fas fa-graduation-cap"></i> <span data-lang="academic">Academic</span>
+                </a>
+                <a href="#" data-page="hobby">
+                    <i class="fas fa-heart"></i> <span data-lang="hobbies">Hobbies</span>
+                </a>
+                <a href="#" data-page="contact">
+                    <i class="fas fa-envelope"></i> <span data-lang="contact">Contact</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- 简洁主页 -->
+    <section id="homepage" class="homepage">
+        <div class="homepage-bg"></div>
+
+        <div class="homepage-inner">
+            <div class="home-intro">
+                <p class="home-kicker">AO GUO</p>
+                <h1 data-lang="welcome-title">Welcome to Ao Guo's website.</h1>
+                <div class="title" id="title">Strong Gravity &amp; Gravitational Waves</div>
+                <p id="bio">A PhD student in QMUL, researching numerical relativity, black hole superradiance, and their astrophysical implications in gravitational waves.</p>
+                <div class="home-actions">
+
+                    <div class="social-links">
+                        <a href="https://inspirehep.net/authors/2630072" target="_blank" rel="noopener noreferrer" aria-label="InspireHEP profile"><i class="fas fa-atom" aria-hidden="true"></i></a>
+                        <a href="https://orcid.org/0000-0003-4847-6641" target="_blank" rel="noopener noreferrer" aria-label="ORCID profile"><i class="fab fa-orcid" aria-hidden="true"></i></a>
+                        <a href="mailto:guoao23@mails.ucas.ac.cn" aria-label="Email Ao Guo"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <img src="static/assets/img/photo.png" alt="Ao Guo" class="avatar">
+                <div class="binary-system" aria-hidden="true">
+                    <div class="black-hole black-hole-1"></div>
+                    <div class="black-hole black-hole-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="home-links" aria-label="Homepage sections">
+            <a class="home-link-card cv-card" href="static/assets/Ao-Guo-CV.pdf" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                <span>CV</span>
+            </a>
+            <a class="home-link-card research-link" href="#" data-page="academic">
+                <i class="fas fa-atom" aria-hidden="true"></i>
+                <span data-lang="home-academic">Academic</span>
+            </a>
+            <a class="home-link-card hobbies-link" href="#" data-page="hobby">
+                <i class="fas fa-music" aria-hidden="true"></i>
+                <span data-lang="home-hobbies">Hobbies</span>
+            </a>
+            <a class="home-link-card contact-link" href="#" data-page="contact">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                <span data-lang="home-contact">Contact</span>
+            </a>
+        </nav>
+    </section>
+
+    <!-- 学术页面 -->
+    <section id="academic-page" class="page-content">
+        <button class="page-back-btn" id="backBtn">
+            <i class="fas fa-arrow-left"></i> <span data-lang="back-home">Back to Home</span>
+        </button>
+
+        <div class="container academic-container">
+            <div class="page-header">
+                <h1 data-lang="academic-title">Academic Profile</h1>
+                <p data-lang="academic-desc">Research in strong gravity and gravitational wave astrophysics</p>
+            </div>
+
+            <div class="content-grid academic-grid">
+                <!-- 研究经历 -->
+                <div class="card research-card">
+                    <h3><i class="fas fa-flask"></i> <span data-lang="research-projects">Research Experience</span></h3>
+                    <div class="research-item">
+                        <div class="research-year">2024</div>
+                        <div class="research-title" data-lang="project1-title">Superradiant Clouds in Close Compact-Object Binaries</div>
+                        <div class="research-desc" data-lang="project1-desc">Developed analytical models of cloud depletion and resonant transfer in close compact-object binaries. Showed that common-envelope evolution can preserve superradiant clouds into the LISA band and enable non-superradiant objects, such as neutron stars, to host boson clouds.</div>
+                        <div class="research-outputs">
+                            <a href="https://doi.org/10.1103/PhysRevD.110.023022" class="publication-link" target="_blank" rel="noopener noreferrer">Phys. Rev. D (2024)</a>
+                            <a href="https://arxiv.org/abs/2401.15003" class="publication-link" target="_blank" rel="noopener noreferrer">arXiv</a>
+                        </div>
+                    </div>
+
+                    <div class="research-item">
+                        <div class="research-year">2025</div>
+                        <div class="research-title" data-lang="project3-title">Formation and Evolution of the Common Envelope</div>
+                        <div class="research-desc" data-lang="project3-desc">Developed a semi-analytical gravitational-molecule framework for common-envelope evolution in black-hole binaries and found eccentricity growth to O(0.1) in the LIGO-Virgo-KAGRA band.</div>
+                        <div class="research-outputs">
+                            <a href="https://doi.org/10.1103/g79c-mqgx" class="publication-link" target="_blank" rel="noopener noreferrer">Phys. Rev. D (2026)</a>
+                            <a href="https://arxiv.org/abs/2508.18738" class="publication-link" target="_blank" rel="noopener noreferrer">arXiv</a>
+                        </div>
+                    </div>
+
+                    <div class="research-item">
+                        <div class="research-year">2022</div>
+                        <div class="research-title" data-lang="project4-title">Conversion from Gravitons to Photons</div>
+                        <div class="research-desc" data-lang="project4-desc">Studied high-frequency gravitational-wave conversion into photons in neutron-star magnetospheres, identifying a possible multimessenger probe of high-frequency gravitational waves and dark matter.</div>
+                        <div class="research-outputs">
+                            <a href="https://doi.org/10.1016/j.nuclphysb.2022.116029" class="publication-link" target="_blank" rel="noopener noreferrer">Nucl. Phys. B (2022)</a>
+                            <a href="https://arxiv.org/abs/2207.14517" class="publication-link" target="_blank" rel="noopener noreferrer">arXiv</a>
+                        </div>
+                    </div>
+
+                    <div class="research-item">
+                        <div class="research-year">2023</div>
+                        <div class="research-title" data-lang="project5-title">Response of Regular Black Holes to Tidal Perturbations</div>
+                        <div class="research-desc" data-lang="project5-desc">Undergraduate Thesis: Investigated the response of several regular black holes (e.g., Hayward, Bardeen and Simpson-Visser metrics) to scalar and vector tidal perturbations.</div>
+                    </div>
+                </div>
+                <!-- 教育背景 -->
+                <div class="card education-card">
+                    <h3><i class="fas fa-graduation-cap"></i> <span data-lang="education">Education</span></h3>
+                    <div class="education-timeline">
+                        <div class="education-item">
+                            <div class="education-period">Sept 2026 - Sept 2030 (expected)</div>
+                            <div class="education-degree" data-lang="edu1-degree">PhD in Mathematics</div>
+                            <div class="education-school" data-lang="edu1-school">Queen Mary University of London</div>
+                        </div>
+
+                        <div class="education-item">
+                            <div class="education-period">Sept 2023 - Jun 2026</div>
+                            <div class="education-degree" data-lang="edu2-degree">Master in Theoretical Physics</div>
+                            <div class="education-school" data-lang="edu2-school">International Centre for Theoretical Physics Asia-Pacific</div>
+                        </div>
+
+                        <div class="education-item">
+                            <div class="education-period">Sept 2019 - Jun 2023</div>
+                            <div class="education-degree" data-lang="edu3-degree">Bachelor in Physics=</div>
+                            <div class="education-school" data-lang="edu3-school">Southern University of Science and Technology</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card skills-card">
+                    <h3><i class="fas fa-code"></i> <span data-lang="skills">Coding Skills</span></h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Mathematica</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Matlab</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">C</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 爱好页面 -->
+    <section id="hobby-page" class="page-content">
+        <button class="page-back-btn" id="backBtn2">
+            <i class="fas fa-arrow-left"></i> <span data-lang="back-home">Back to Home</span>
+        </button>
+
+        <div class="container">
+            <div class="page-header">
+                <h1 data-lang="hobbies-title">Hobbies & Interests</h1>
+                <p data-lang="hobbies-desc">Life outside research - sources of creativity and vitality</p>
+            </div>
+
+            <div class="content-grid hobby-grid">
+                <div class="card">
+                    <h3><i class="fas fa-music"></i> <span data-lang="piano">Piano</span></h3>
+                    <p data-lang="piano-desc">I served as president of the campus piano club and performed a piano solo at the 2024 International Congress of Basic Science Physics Night.</p>
+                    <div class="hobby-photo-slot" data-lang="piano-photo-placeholder">Piano performance photo</div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-swimmer"></i> <span data-lang="swimming">Swimming</span></h3>
+                    <p data-lang="swimming-desc">Swimming keeps me energized and gives me time to reset between research projects.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-book-open"></i> <span data-lang="literature">Literature</span></h3>
+                    <p data-lang="literature-desc">Literature broadens my perspective and remains a quiet counterpoint to technical work.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-dumbbell"></i> <span data-lang="fitness">Fitness</span></h3>
+                    <p data-lang="fitness-desc">Regular training helps me maintain resilience, concentration, and a sustainable rhythm.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系页面 -->
+    <section id="contact-page" class="page-content">
+        <button class="page-back-btn" id="backBtn5">
+            <i class="fas fa-arrow-left"></i> <span data-lang="back-home">Back to Home</span>
+        </button>
+
+        <div class="container">
+            <div class="page-header">
+                <h1 data-lang="contact-title">Contact Me</h1>
+                <p data-lang="contact-desc">If you're interested in my research or collaboration, feel free to reach out</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fas fa-envelope"></i> <span data-lang="email">Email</span></h3>
+                    <p><a href="mailto:guoao23@mails.ucas.ac.cn">guoao23@mails.ucas.ac.cn</a></p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-map-marker-alt"></i> <span data-lang="institution">Institution</span></h3>
+                    <p>International Centre for Theoretical Physics Asia-Pacific (ICTP-AP)</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-link"></i> <span data-lang="profiles">Academic Profiles</span></h3>
+                    <div style="margin-top: 15px;">
+                        <a href="https://inspirehep.net/authors/2630072" class="publication-link" target="_blank" rel="noopener noreferrer">InspireHEP</a>
+                        <a href="https://orcid.org/0000-0003-4847-6641" class="publication-link" target="_blank" rel="noopener noreferrer">ORCID</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>© 2026 Ao Guo</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 中英文翻译数据
+        const translations = {
+            en: {
+                // 主页
+                name: "Ao Guo",
+                title: "Strong Gravity | Gravitational Waves ",
+                bio: "A PhD student in Mathematics, researching black hole superradiance, numerical relativity and their astrophysical implications in gravitational waves.",
+
+                // 导航
+                "nav-text": "Navigation",
+                "home": "Home",
+                "home-academic": "Academic",
+                "home-hobbies": "Hobbies",
+                "home-contact": "Contact",
+                "welcome-title": "Welcome to Ao Guo's website.",
+                "academic": "Academic",
+                "hobbies": "Hobbies",
+                "contact": "Contact",
+                "back-home": "Back to Home",
+
+                // 学术页面
+                "academic-title": "Academic Profile",
+                "academic-desc": "Research in black-hole superradiance, gravitational-wave astrophysics, and numerical relativity",
+                "research-projects": "Research Experience",
+                "project1-title": "Superradiant Clouds in Close Compact-Object Binaries",
+                "project1-desc": "Developed analytical models of cloud depletion and resonant transfer in close compact-object binaries. Showed that common-envelope evolution can preserve superradiant clouds into the LISA band and enable non-superradiant objects, such as neutron stars, to host boson clouds.",
+                "project3-title": "Common-Envelope Evolution of Ultralight Boson Clouds",
+                "project3-desc": "Developed a semi-analytical gravitational-molecule framework for common-envelope evolution in black-hole binaries and found eccentricity growth to O(0.1) in the LIGO-Virgo-KAGRA band.",
+                "project4-title": "Photons Generated by Gravitational Waves near a Neutron Star",
+                "project4-desc": "Studied high-frequency gravitational-wave conversion into photons in neutron-star magnetospheres, identifying a possible multimessenger probe of high-frequency gravitational waves and dark matter.",
+                "project5-title": "Tidal Response of Regular Black Holes",
+                "project5-desc": "Undergraduate thesis: analyzed scalar and vector tidal perturbations of regular black holes, including the Hayward, Bardeen, and Simpson-Visser metrics.",
+                "education": "Education",
+                "edu1-degree": "PhD in Mathematics",
+                "edu1-school": "Queen Mary University of London",
+                "edu2-degree": "Master in Theoretical Physics",
+                "edu2-school": "International Centre for Theoretical Physics Asia-Pacific",
+                "edu3-degree": "Bachelor in Physics",
+                "edu3-school": "Southern University of Science and Technology",
+                "skills": "Coding Skills",
+
+                // 爱好页面
+                "hobbies-title": "Hobbies & Interests",
+                "hobbies-desc": "Life outside research - sources of creativity and vitality",
+                "piano": "Piano",
+                "piano-desc": "I served as president of the campus piano club and performed a piano solo at the 2024 International Congress of Basic Science Physics Night.",
+                "piano-photo-placeholder": "Piano performance photo",
+                "swimming": "Swimming",
+                "swimming-desc": "Swimming keeps me energized and gives me time to reset between research projects.",
+                "literature": "Literature",
+                "literature-desc": "Literature broadens my perspective and remains a quiet counterpoint to technical work.",
+                "fitness": "Fitness",
+                "fitness-desc": "Regular training helps me maintain resilience, concentration, and a sustainable rhythm.",
+                // 联系页面
+                "contact-title": "Contact Me",
+                "contact-desc": "If you're interested in my research or collaboration, feel free to reach out",
+                "email": "Email",
+                "institution": "Institution",
+                "profiles": "Academic Profiles",
+
+                // 页脚
+                "rights": "All rights reserved"
+            },
+            zh: {
+                // 主页
+                name: "郭傲",
+                title: " 强引力 | 引力波",
+                bio: "数学博士在读，主要研究黑洞超辐射、修改引力理论下的数值相对论与引力波天文学相关的问题。",
+
+                // 导航
+                "nav-text": "导航菜单",
+                "home": "首页",
+                "home-academic": "学术",
+                "home-hobbies": "兴趣",
+                "home-contact": "联系",
+                "welcome-title": "欢迎来到郭傲的个人主页。",
+                "academic": "学术",
+                "hobbies": "爱好",
+                "contact": "联系",
+                "back-home": "返回主页",
+
+                // 学术页面
+                "academic-title": "学术简介",
+                "academic-desc": "研究黑洞超辐射、引力波天体物理与数值相对论",
+                "research-projects": "研究经历",
+                "project1-title": "紧密致密双星系统中的超辐射云",
+                "project1-desc": "建立紧密致密双星中玻色子云耗尽与共振转移的解析模型。研究表明共同包层演化可使超辐射云存留至 LISA 频段，并使中子星等非超辐射天体可能承载玻色子云。",
+                "project3-title": "轻质量玻色子云的共同包层演化",
+                "project3-desc": "建立黑洞双星共同包层形成与演化的半解析引力分子框架，并发现其可在 LIGO-Virgo-KAGRA 频段内驱动轨道偏心率增长至 O(0.1)。",
+                "project4-title": "中子星近区引力波产生的光子",
+                "project4-desc": "研究高频引力波在中子星磁层中转换为光子的机制，提出其可作为高频引力波与暗物质的潜在多信使探针。",
+                "project5-title": "规则黑洞的潮汐响应",
+                "project5-desc": "本科毕业论文：分析包括 Hayward、Bardeen 和 Simpson-Visser 度规在内的规则黑洞对标量与矢量潮汐扰动的响应。",
+                "education": "教育背景",
+                "edu1-degree": "数学博士",
+                "edu1-school": "伦敦玛丽女王大学，英国",
+                "edu2-degree": "理论物理硕士",
+                "edu2-school": "国际理论物理中心亚太分部（ICTP-AP），中国科学院大学，中国",
+                "edu3-degree": "物理学学士",
+                "edu3-school": "南方科技大学，中国",
+                "skills": "编程技能",
+
+                // 爱好页面
+                "hobbies-title": "兴趣爱好",
+                "hobbies-desc": "研究之外的生活——创造力和活力的源泉",
+                "piano": "钢琴",
+                "piano-desc": "我曾担任校钢琴社社长，并在 2024 年国际基础科学大会 Physics Night 活动中完成钢琴独奏演出。",
+                "piano-photo-placeholder": "钢琴演出照片",
+                "swimming": "游泳",
+                "swimming-desc": "游泳帮助我保持精力，也让我能在研究间隙重新调整状态。",
+                "literature": "文学",
+                "literature-desc": "文学拓展我的观察视角，也为技术性工作提供安静的对照。",
+                "fitness": "健身",
+                "fitness-desc": "规律训练帮助我维持韧性、专注力与可持续的节奏。",
+                // 联系页面
+                "contact-title": "联系我",
+                "contact-desc": "如果您对我的研究或合作感兴趣，欢迎联系",
+                "email": "邮箱",
+                "institution": "机构",
+                "profiles": "学术档案",
+
+                // 页脚
+                "rights": "保留所有权利"
+            }
+        };
+
+        // 当前语言
+        let currentLang = 'en';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有页面和元素
+            const homepage = document.getElementById('homepage');
+            const academicPage = document.getElementById('academic-page');
+            const hobbyPage = document.getElementById('hobby-page');
+            const contactPage = document.getElementById('contact-page');
+
+            const globalMenuToggle = document.getElementById('globalMenuToggle');
+            const globalDropdownMenu = document.getElementById('globalDropdownMenu');
+            const backBtns = document.querySelectorAll('.page-back-btn');
+
+            const langEnBtn = document.getElementById('lang-en');
+            const langZhBtn = document.getElementById('lang-zh');
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // 获取所有页面链接
+            const pageLinks = document.querySelectorAll('[data-page]');
+
+            // 当前活动页面
+            let activePage = 'homepage';
+
+            // 初始化语言
+            updateLanguage(currentLang);
+
+            // 英文按钮点击
+            langEnBtn.addEventListener('click', function() {
+                if (currentLang !== 'en') {
+                    currentLang = 'en';
+                    updateLanguage('en');
+                    updateActiveLangBtn();
+                }
+            });
+
+            // 中文按钮点击
+            langZhBtn.addEventListener('click', function() {
+                if (currentLang !== 'zh') {
+                    currentLang = 'zh';
+                    updateLanguage('zh');
+                    updateActiveLangBtn();
+                }
+            });
+
+            // 更新活动语言按钮样式
+            function updateActiveLangBtn() {
+                [langEnBtn, langZhBtn].forEach(btn => btn.classList.remove('active'));
+                if (currentLang === 'en') {
+                    langEnBtn.classList.add('active');
+                } else {
+                    langZhBtn.classList.add('active');
+                }
+                langEnBtn.setAttribute('aria-pressed', currentLang === 'en');
+                langZhBtn.setAttribute('aria-pressed', currentLang === 'zh');
+            }
+
+            globalMenuToggle.addEventListener('click', function() {
+                const isOpen = globalMenuToggle.getAttribute('aria-expanded') === 'true';
+                globalMenuToggle.setAttribute('aria-expanded', !isOpen);
+                globalDropdownMenu.parentElement.classList.toggle('menu-open', !isOpen);
+            });
+
+            // 更新页面语言
+            function updateLanguage(lang) {
+                const data = translations[lang];
+
+                // 更新所有带有data-lang属性的元素
+                document.querySelectorAll('[data-lang]').forEach(element => {
+                    const key = element.getAttribute('data-lang');
+                    if (data[key]) {
+                        element.textContent = data[key];
+                    }
+                });
+
+                // 更新主页特定元素
+                const nameElement = document.getElementById('name');
+                const titleElement = document.getElementById('title');
+                const bioElement = document.getElementById('bio');
+
+                if (nameElement && data.name) nameElement.textContent = data.name;
+                if (titleElement && data.title) titleElement.textContent = data.title;
+                if (bioElement && data.bio) bioElement.textContent = data.bio;
+
+                // 更新导航文本
+                const navTextElement = document.getElementById('nav-text');
+                if (navTextElement && data['nav-text']) {
+                    navTextElement.textContent = data['nav-text'];
+                }
+            }
+
+            // 页面导航功能
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // 获取目标页面
+                    const targetPage = this.getAttribute('data-page');
+
+                    // 隐藏所有页面
+                    hideAllPages();
+
+                    // 显示目标页面
+                    showPage(targetPage);
+                    globalMenuToggle.setAttribute('aria-expanded', 'false');
+                    globalDropdownMenu.parentElement.classList.remove('menu-open');
+
+                    // 滚动到顶部
+                    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+                });
+            });
+
+            // 返回主页功能
+            backBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // 隐藏所有页面
+                    hideAllPages();
+
+                    // 显示主页
+                    showPage('homepage');
+
+                    // 滚动到顶部
+                    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+                });
+            });
+
+            // 隐藏所有页面的函数
+            function hideAllPages() {
+                homepage.style.display = 'none';
+                academicPage.classList.remove('active');
+                hobbyPage.classList.remove('active');
+                contactPage.classList.remove('active');
+            }
+
+            // 显示特定页面的函数
+            function showPage(pageName) {
+                activePage = pageName;
+
+                if (pageName === 'homepage') {
+                    homepage.style.display = 'flex';
+                } else if (pageName === 'academic') {
+                    academicPage.classList.add('active');
+                } else if (pageName === 'hobby') {
+                    hobbyPage.classList.add('active');
+                } else if (pageName === 'contact') {
+                    contactPage.classList.add('active');
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>

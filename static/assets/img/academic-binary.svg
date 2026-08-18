@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Minimal binary black hole illustration</title>
+  <desc id="desc">Two black holes orbiting each other on a dark blue background.</desc>
+  <defs>
+    <radialGradient id="background" cx="50%" cy="45%" r="75%">
+      <stop offset="0" stop-color="#24496e"/>
+      <stop offset="1" stop-color="#101b32"/>
+    </radialGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#aeeeff" stop-opacity=".86"/>
+      <stop offset=".34" stop-color="#4ccce7" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#4ccce7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" x2="1">
+      <stop stop-color="#87e8f5" stop-opacity=".22"/>
+      <stop offset=".5" stop-color="#c3f4f7" stop-opacity=".8"/>
+      <stop offset="1" stop-color="#87e8f5" stop-opacity=".22"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#background)"/>
+  <ellipse cx="600" cy="450" rx="440" ry="205" fill="none" stroke="url(#ring)" stroke-width="4" transform="rotate(-18 600 450)"/>
+  <ellipse cx="600" cy="450" rx="325" ry="140" fill="none" stroke="#8ce8f4" stroke-opacity=".18" stroke-width="2" transform="rotate(-18 600 450)"/>
+  <circle cx="445" cy="504" r="180" fill="url(#glow)"/>
+  <circle cx="755" cy="396" r="180" fill="url(#glow)"/>
+  <circle cx="445" cy="504" r="67" fill="#020610"/>
+  <circle cx="755" cy="396" r="67" fill="#020610"/>
+  <circle cx="445" cy="504" r="78" fill="none" stroke="#a8f4ff" stroke-opacity=".46" stroke-width="5"/>
+  <circle cx="755" cy="396" r="78" fill="none" stroke="#a8f4ff" stroke-opacity=".46" stroke-width="5"/>
+  <circle cx="600" cy="450" r="5" fill="#d5fbff"/>
+</svg>
