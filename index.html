@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
     <meta property="og:url" content="https://gravao.github.io/">
     <title>Ao Guo | Strong Gravity &amp; Gravitational Waves</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #6C63FF;
@@ -37,7 +37,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--light-color);
+            background-color: #f6f4ef;
             color: var(--dark-color);
             line-height: 1.7;
             overflow-x: hidden;
@@ -48,20 +48,6 @@
         :focus-visible {
             outline: 3px solid var(--accent-color);
             outline-offset: 3px;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(108, 99, 255, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(255, 101, 132, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 50% 50%, rgba(54, 209, 220, 0.05) 0%, transparent 30%);
-            z-index: -1;
         }
 
         .container {
@@ -109,7 +95,7 @@
         }
 
         .lang-btn.active {
-            background: var(--gradient-primary);
+            background: #1c2230;
             color: white;
         }
 
@@ -140,7 +126,7 @@
 
         .global-menu-toggle:hover {
             transform: translateY(-3px);
-            background: var(--gradient-primary);
+            background: #1c2230;
             color: white;
         }
 
@@ -187,8 +173,8 @@
         }
 
         .global-dropdown-menu a:hover {
-            background: rgba(108, 99, 255, 0.1);
-            color: var(--primary-color);
+            background: #f1eee7;
+            color: #2c4a78;
             padding-left: 25px;
         }
 
@@ -542,39 +528,27 @@
             text-decoration: underline;
         }
 
-        .hobby-photo-slot {
-            display: grid;
-            place-items: center;
-            aspect-ratio: 4 / 3;
-            margin-top: 18px;
-            border: 1px dashed rgba(108, 99, 255, 0.45);
-            border-radius: var(--border-radius);
-            color: var(--gray-color);
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        #hobby-page.active {
-            display: block;
-        }
-
-        .hobby-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            align-items: start;
-        }
-
-        /* 页面内容区域 */
+        /* ---------- 子页面（学术 / 爱好 / 联系）：纸张 + 墨色的排版风格 ---------- */
         .page-content {
+            --paper: #f6f4ef;
+            --ink: #1c2230;
+            --ink-soft: #4a5263;
+            --ink-faint: #7d8494;
+            --rule: #d9d4c9;
+            --accent: #2c4a78;
+            --serif: 'Source Serif 4', 'Songti SC', 'Noto Serif SC', Georgia, serif;
+
             display: none;
-            padding: 100px 0 60px;
+            padding: 128px 0 72px;
             min-height: 100vh;
-            background-color: var(--light-color);
+            background: var(--paper);
+            color: var(--ink);
             position: relative;
         }
 
         .page-content.active {
             display: block;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
@@ -582,363 +556,282 @@
             to { opacity: 1; }
         }
 
+        .page-content .container {
+            max-width: 1040px;
+            padding: 0 32px;
+        }
+
+        .page-content ::selection {
+            background: rgba(44, 74, 120, 0.18);
+        }
+
         .page-header {
-            text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 48px;
         }
 
         .page-header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--dark-color);
+            font-family: var(--serif);
+            font-size: clamp(2.2rem, 4.2vw, 3.1rem);
+            font-weight: 500;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
+            color: var(--ink);
         }
 
         .page-header p {
-            color: var(--gray-color);
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 1.1rem;
+            color: var(--ink-soft);
+            max-width: 62ch;
+            font-size: 1.05rem;
         }
 
-        /* 页面返回按钮 */
+        /* 返回按钮：安静的文字链接 */
         .page-back-btn {
             position: absolute;
-            top: 30px;
-            left: 30px;
-            background: var(--card-bg);
+            top: 38px;
+            left: 32px;
+            background: none;
             border: none;
-            border-radius: 50px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 6px 0;
+            font: inherit;
+            font-size: 0.92rem;
+            font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-            color: var(--dark-color);
+            gap: 8px;
+            color: var(--ink-soft);
             z-index: 1000;
-            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .page-back-btn i {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
         }
 
         .page-back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-            background: var(--gradient-primary);
-            color: white;
+            color: var(--ink);
         }
 
-        /* 卡片样式 */
+        .page-back-btn:hover i {
+            transform: translateX(-3px);
+        }
+
+        /* 栏目：细线分隔，而不是阴影卡片 */
         .content-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 48px 56px;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        .page-content .card {
+            padding: 20px 0 0;
+            border-top: 1px solid var(--rule);
+            background: none;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--gradient-primary);
-            transition: var(--transition);
+        .page-content .card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
+        .page-content .card p {
+            color: var(--ink-soft);
         }
 
-        .card:hover::before {
-            width: 8px;
+        .page-content .card p a {
+            color: var(--ink);
+            text-decoration: underline;
+            text-decoration-color: var(--rule);
+            text-underline-offset: 4px;
+            transition: text-decoration-color 0.2s ease;
         }
 
-        .card h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--dark-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .page-content .card p a:hover {
+            text-decoration-color: var(--accent);
         }
 
-        .card h3 i {
-            color: var(--primary-color);
-        }
-
-        /* 学术项目列表 */
+        /* 研究经历 */
         .research-item {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 22px 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .research-item:first-of-type {
+            padding-top: 4px;
         }
 
         .research-item:last-child {
             border-bottom: none;
-        }
-
-        .research-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            color: var(--dark-color);
+            padding-bottom: 0;
         }
 
         .research-year {
-            display: inline-block;
-            background: rgba(108, 99, 255, 0.1);
-            color: var(--primary-color);
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            color: var(--ink-faint);
+            font-size: 0.9rem;
             font-weight: 500;
-            margin-bottom: 10px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .research-title {
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: 1.22rem;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            color: var(--ink);
         }
 
         .research-desc {
-            color: var(--gray-color);
-            margin-bottom: 10px;
-            line-height: 1.6;
+            color: var(--ink-soft);
+            line-height: 1.75;
         }
 
-        .publication-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .publication-item {
-            margin-bottom: 15px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .publication-item::before {
-            content: "•";
-            color: var(--primary-color);
-            position: absolute;
-            left: 0;
-            font-size: 1.5rem;
-            line-height: 1;
-        }
-
-        .publication-title {
-            font-weight: 500;
-            color: var(--dark-color);
-        }
-
-        .publication-authors {
-            color: var(--gray-color);
-            font-size: 0.95rem;
-        }
-
-        .publication-journal {
-            color: var(--gray-color);
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-
-        .publication-links {
-            margin-top: 5px;
-        }
-
-        .publication-link {
-            display: inline-block;
-            background: rgba(108, 99, 255, 0.1);
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            text-decoration: none;
-            margin-right: 10px;
-            margin-top: 5px;
-            transition: var(--transition);
-        }
-
-        .publication-link:hover {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        /* 技能标签 */
-        .skill-tags {
+        .research-outputs {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 4px 20px;
             margin-top: 10px;
         }
 
-        .skill-tag {
-            background: rgba(108, 99, 255, 0.1);
-            color: var(--primary-color);
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 0.9rem;
+        .publication-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent);
+            font-size: 0.88rem;
             font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
         }
 
-        /* 教育时间线 */
-        .education-timeline {
-            position: relative;
-            padding-left: 30px;
+        .publication-link::after {
+            content: '\2197';
+            font-size: 0.8em;
         }
 
-        .education-timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: var(--gradient-primary);
+        .publication-link:hover {
+            border-bottom-color: currentColor;
         }
 
+        .profile-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 20px;
+        }
+
+        /* 教育经历 */
         .education-item {
-            margin-bottom: 30px;
-            position: relative;
+            padding: 0 0 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--rule);
         }
 
-        .education-item::before {
-            content: '';
-            position: absolute;
-            left: -36px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            border: 3px solid white;
-            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+        .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         .education-period {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 5px;
+            color: var(--ink-faint);
+            font-size: 0.88rem;
+            font-variant-numeric: tabular-nums;
+            margin-bottom: 4px;
         }
 
         .education-degree {
+            font-family: var(--serif);
             font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
+            font-size: 1.12rem;
+            color: var(--ink);
         }
 
         .education-school {
-            color: var(--gray-color);
+            color: var(--ink-soft);
         }
 
-        /* Academic page: wider reading layout */
-        .academic-container {
-            max-width: 1440px;
+        /* 技能 */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
+        .skill-tag {
+            padding: 3px 12px;
+            border: 1px solid var(--rule);
+            border-radius: 3px;
+            color: var(--ink-soft);
+            font-size: 0.88rem;
+        }
+
+        /* 学术页布局 */
         .academic-grid {
-            grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.85fr);
-            gap: 26px;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 56px 64px;
             align-items: start;
         }
 
-        .academic-grid .card {
-            padding: 34px 38px;
-        }
-
-        .academic-grid .card:hover {
-            transform: none;
-        }
-
-        .academic-grid .research-card,
-        .academic-grid .outreach-card {
-            grid-column: 1 / -1;
-        }
-
         .academic-grid .research-card {
-            padding: 38px 44px;
+            grid-column: 1 / -1;
         }
 
         .research-card .research-item {
             display: grid;
-            grid-template-columns: 74px minmax(0, 1fr);
-            column-gap: 18px;
-            margin-bottom: 22px;
-            padding-bottom: 22px;
+            grid-template-columns: 72px minmax(0, 1fr);
+            column-gap: 24px;
         }
 
         .research-card .research-year {
-            grid-column: 1;
-            grid-row: 1 / span 2;
-            align-self: start;
-            margin: 2px 0 0;
-            text-align: center;
+            grid-row: 1 / span 3;
+            padding-top: 3px;
         }
 
         .research-card .research-title,
-        .research-card .research-desc {
-            grid-column: 2;
-        }
-
-        .research-card .research-title {
-            margin-bottom: 6px;
-        }
-
+        .research-card .research-desc,
         .research-card .research-outputs {
             grid-column: 2;
-            margin-top: 2px;
         }
 
         .research-card .research-desc {
-            max-width: 100ch;
-            margin-bottom: 0;
-            line-height: 1.75;
+            max-width: 75ch;
         }
 
-        .publication-card .publication-item {
-            margin-bottom: 22px;
-            padding-left: 22px;
+        /* 爱好页 */
+        .hobby-grid {
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            align-items: start;
         }
 
-        .publication-card .publication-title {
-            font-size: 1.05rem;
-            line-height: 1.5;
-        }
-
-        .achievements-card .research-item {
-            margin-bottom: 18px;
-            padding-bottom: 16px;
-        }
-
-        .academic-grid ul {
-            line-height: 1.7;
+        .hobby-photo-slot {
+            display: grid;
+            place-items: center;
+            aspect-ratio: 4 / 3;
+            margin-top: 18px;
+            border: 1px dashed var(--rule);
+            color: var(--ink-faint);
+            font-size: 0.88rem;
         }
 
         /* 页脚 */
         footer {
-            margin-top: 60px;
-            padding: 26px 0;
+            padding: 28px 0;
             text-align: center;
-            background: linear-gradient(135deg, rgba(108, 99, 255, 0.08), rgba(54, 209, 220, 0.08));
-            border-top: 1px solid rgba(108, 99, 255, 0.16);
+            background: #f6f4ef;
+            border-top: 1px solid #d9d4c9;
         }
 
         .copyright {
-            font-size: 0.9rem;
-            color: var(--gray-color);
+            font-size: 0.85rem;
+            color: #7d8494;
         }
 
         /* 响应式设计 */
@@ -951,8 +844,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .academic-grid .research-card,
-            .academic-grid .outreach-card {
+            .academic-grid .research-card {
                 grid-column: auto;
             }
 
@@ -996,14 +888,17 @@
                 aspect-ratio: 2 / 1;
             }
 
-            .academic-grid .card,
-            .academic-grid .research-card {
-                padding: 28px 24px;
-            }
-
             .research-card .research-item {
                 grid-template-columns: 1fr;
-                row-gap: 8px;
+                row-gap: 4px;
+            }
+
+            .page-content {
+                padding-top: 150px;
+            }
+
+            .page-content .container {
+                padding: 0 20px;
             }
 
             .research-card .research-year,
@@ -1035,7 +930,7 @@
             }
 
             .page-back-btn {
-                top: 20px;
+                top: 24px;
                 left: 20px;
             }
 
@@ -1139,14 +1034,14 @@
             <div class="home-intro">
                 <p class="home-kicker">AO GUO</p>
                 <h1 data-lang="welcome-title">Welcome to Ao Guo's website.</h1>
-                <div class="title" id="title">Strong Gravity &amp; Gravitational Waves</div>
-                <p id="bio">A PhD student in QMUL, researching numerical relativity, black hole superradiance, and their astrophysical implications in gravitational waves.</p>
+                <div class="title" id="title">Strong Gravity | Gravitational Waves</div>
+                <p id="bio">A PhD student in Mathematics at Queen Mary University of London, researching black hole superradiance, numerical relativity, and their astrophysical implications in gravitational waves.</p>
                 <div class="home-actions">
 
                     <div class="social-links">
                         <a href="https://inspirehep.net/authors/2630072" target="_blank" rel="noopener noreferrer" aria-label="InspireHEP profile"><i class="fas fa-atom" aria-hidden="true"></i></a>
                         <a href="https://orcid.org/0000-0003-4847-6641" target="_blank" rel="noopener noreferrer" aria-label="ORCID profile"><i class="fab fa-orcid" aria-hidden="true"></i></a>
-                        <a href="mailto:guoao23@mails.ucas.ac.cn" aria-label="Email Ao Guo"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+                        <a href="mailto:a.guo@qmul.ac.uk" aria-label="Email Ao Guo"><i class="fas fa-envelope" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
@@ -1190,13 +1085,23 @@
         <div class="container academic-container">
             <div class="page-header">
                 <h1 data-lang="academic-title">Academic Profile</h1>
-                <p data-lang="academic-desc">Research in strong gravity and gravitational wave astrophysics</p>
+                <p data-lang="academic-desc">Research in black-hole superradiance, gravitational-wave astrophysics, and numerical relativity</p>
             </div>
 
             <div class="content-grid academic-grid">
                 <!-- 研究经历 -->
                 <div class="card research-card">
-                    <h3><i class="fas fa-flask"></i> <span data-lang="research-projects">Research Experience</span></h3>
+                    <h3><span data-lang="research-projects">Research Experience</span></h3>
+                    <div class="research-item">
+                        <div class="research-year">2025</div>
+                        <div class="research-title" data-lang="project3-title">Common-Envelope Evolution of Ultralight Boson Clouds</div>
+                        <div class="research-desc" data-lang="project3-desc">Developed a semi-analytical gravitational-molecule framework for common-envelope evolution in black-hole binaries and found eccentricity growth to O(0.1) in the LIGO-Virgo-KAGRA band.</div>
+                        <div class="research-outputs">
+                            <a href="https://doi.org/10.1103/g79c-mqgx" class="publication-link" target="_blank" rel="noopener noreferrer">Phys. Rev. D (2026)</a>
+                            <a href="https://arxiv.org/abs/2508.18738" class="publication-link" target="_blank" rel="noopener noreferrer">arXiv</a>
+                        </div>
+                    </div>
+
                     <div class="research-item">
                         <div class="research-year">2024</div>
                         <div class="research-title" data-lang="project1-title">Superradiant Clouds in Close Compact-Object Binaries</div>
@@ -1208,34 +1113,24 @@
                     </div>
 
                     <div class="research-item">
-                        <div class="research-year">2025</div>
-                        <div class="research-title" data-lang="project3-title">Formation and Evolution of the Common Envelope</div>
-                        <div class="research-desc" data-lang="project3-desc">Developed a semi-analytical gravitational-molecule framework for common-envelope evolution in black-hole binaries and found eccentricity growth to O(0.1) in the LIGO-Virgo-KAGRA band.</div>
-                        <div class="research-outputs">
-                            <a href="https://doi.org/10.1103/g79c-mqgx" class="publication-link" target="_blank" rel="noopener noreferrer">Phys. Rev. D (2026)</a>
-                            <a href="https://arxiv.org/abs/2508.18738" class="publication-link" target="_blank" rel="noopener noreferrer">arXiv</a>
-                        </div>
+                        <div class="research-year">2023</div>
+                        <div class="research-title" data-lang="project5-title">Tidal Response of Regular Black Holes</div>
+                        <div class="research-desc" data-lang="project5-desc">Undergraduate thesis: analyzed scalar and vector tidal perturbations of regular black holes, including the Hayward, Bardeen, and Simpson-Visser metrics.</div>
                     </div>
 
                     <div class="research-item">
                         <div class="research-year">2022</div>
-                        <div class="research-title" data-lang="project4-title">Conversion from Gravitons to Photons</div>
+                        <div class="research-title" data-lang="project4-title">Photons Generated by Gravitational Waves near a Neutron Star</div>
                         <div class="research-desc" data-lang="project4-desc">Studied high-frequency gravitational-wave conversion into photons in neutron-star magnetospheres, identifying a possible multimessenger probe of high-frequency gravitational waves and dark matter.</div>
                         <div class="research-outputs">
                             <a href="https://doi.org/10.1016/j.nuclphysb.2022.116029" class="publication-link" target="_blank" rel="noopener noreferrer">Nucl. Phys. B (2022)</a>
                             <a href="https://arxiv.org/abs/2207.14517" class="publication-link" target="_blank" rel="noopener noreferrer">arXiv</a>
                         </div>
                     </div>
-
-                    <div class="research-item">
-                        <div class="research-year">2023</div>
-                        <div class="research-title" data-lang="project5-title">Response of Regular Black Holes to Tidal Perturbations</div>
-                        <div class="research-desc" data-lang="project5-desc">Undergraduate Thesis: Investigated the response of several regular black holes (e.g., Hayward, Bardeen and Simpson-Visser metrics) to scalar and vector tidal perturbations.</div>
-                    </div>
                 </div>
                 <!-- 教育背景 -->
                 <div class="card education-card">
-                    <h3><i class="fas fa-graduation-cap"></i> <span data-lang="education">Education</span></h3>
+                    <h3><span data-lang="education">Education</span></h3>
                     <div class="education-timeline">
                         <div class="education-item">
                             <div class="education-period">Sept 2026 - Sept 2030 (expected)</div>
@@ -1251,13 +1146,13 @@
 
                         <div class="education-item">
                             <div class="education-period">Sept 2019 - Jun 2023</div>
-                            <div class="education-degree" data-lang="edu3-degree">Bachelor in Physics=</div>
+                            <div class="education-degree" data-lang="edu3-degree">Bachelor in Physics</div>
                             <div class="education-school" data-lang="edu3-school">Southern University of Science and Technology</div>
                         </div>
                     </div>
                 </div>
                 <div class="card skills-card">
-                    <h3><i class="fas fa-code"></i> <span data-lang="skills">Coding Skills</span></h3>
+                    <h3><span data-lang="skills">Coding Skills</span></h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Mathematica</span>
                         <span class="skill-tag">Python</span>
@@ -1284,23 +1179,23 @@
 
             <div class="content-grid hobby-grid">
                 <div class="card">
-                    <h3><i class="fas fa-music"></i> <span data-lang="piano">Piano</span></h3>
+                    <h3><span data-lang="piano">Piano</span></h3>
                     <p data-lang="piano-desc">I served as president of the campus piano club and performed a piano solo at the 2024 International Congress of Basic Science Physics Night.</p>
                     <div class="hobby-photo-slot" data-lang="piano-photo-placeholder">Piano performance photo</div>
                 </div>
 
                 <div class="card">
-                    <h3><i class="fas fa-swimmer"></i> <span data-lang="swimming">Swimming</span></h3>
+                    <h3><span data-lang="swimming">Swimming</span></h3>
                     <p data-lang="swimming-desc">Swimming keeps me energized and gives me time to reset between research projects.</p>
                 </div>
 
                 <div class="card">
-                    <h3><i class="fas fa-book-open"></i> <span data-lang="literature">Literature</span></h3>
+                    <h3><span data-lang="literature">Literature</span></h3>
                     <p data-lang="literature-desc">Literature broadens my perspective and remains a quiet counterpoint to technical work.</p>
                 </div>
 
                 <div class="card">
-                    <h3><i class="fas fa-dumbbell"></i> <span data-lang="fitness">Fitness</span></h3>
+                    <h3><span data-lang="fitness">Fitness</span></h3>
                     <p data-lang="fitness-desc">Regular training helps me maintain resilience, concentration, and a sustainable rhythm.</p>
                 </div>
             </div>
@@ -1321,18 +1216,18 @@
 
             <div class="content-grid">
                 <div class="card">
-                    <h3><i class="fas fa-envelope"></i> <span data-lang="email">Email</span></h3>
-                    <p><a href="mailto:guoao23@mails.ucas.ac.cn">guoao23@mails.ucas.ac.cn</a></p>
+                    <h3><span data-lang="email">Email</span></h3>
+                    <p><a href="mailto:a.guo@qmul.ac.uk">a.guo@qmul.ac.uk</a></p>
                 </div>
 
                 <div class="card">
-                    <h3><i class="fas fa-map-marker-alt"></i> <span data-lang="institution">Institution</span></h3>
-                    <p>International Centre for Theoretical Physics Asia-Pacific (ICTP-AP)</p>
+                    <h3><span data-lang="institution">Institution</span></h3>
+                    <p data-lang="institution-name">Queen Mary University of London (QMUL)</p>
                 </div>
 
                 <div class="card">
-                    <h3><i class="fas fa-link"></i> <span data-lang="profiles">Academic Profiles</span></h3>
-                    <div style="margin-top: 15px;">
+                    <h3><span data-lang="profiles">Academic Profiles</span></h3>
+                    <div class="profile-links">
                         <a href="https://inspirehep.net/authors/2630072" class="publication-link" target="_blank" rel="noopener noreferrer">InspireHEP</a>
                         <a href="https://orcid.org/0000-0003-4847-6641" class="publication-link" target="_blank" rel="noopener noreferrer">ORCID</a>
                     </div>
@@ -1356,8 +1251,8 @@
             en: {
                 // 主页
                 name: "Ao Guo",
-                title: "Strong Gravity | Gravitational Waves ",
-                bio: "A PhD student in Mathematics, researching black hole superradiance, numerical relativity and their astrophysical implications in gravitational waves.",
+                title: "Strong Gravity | Gravitational Waves",
+                bio: "A PhD student in Mathematics at Queen Mary University of London, researching black hole superradiance, numerical relativity, and their astrophysical implications in gravitational waves.",
 
                 // 导航
                 "nav-text": "Navigation",
@@ -1409,6 +1304,7 @@
                 "contact-desc": "If you're interested in my research or collaboration, feel free to reach out",
                 "email": "Email",
                 "institution": "Institution",
+                "institution-name": "Queen Mary University of London (QMUL)",
                 "profiles": "Academic Profiles",
 
                 // 页脚
@@ -1417,8 +1313,8 @@
             zh: {
                 // 主页
                 name: "郭傲",
-                title: " 强引力 | 引力波",
-                bio: "数学博士在读，主要研究黑洞超辐射、修改引力理论下的数值相对论与引力波天文学相关的问题。",
+                title: "强引力 | 引力波",
+                bio: "伦敦玛丽女王大学数学博士在读，主要研究黑洞超辐射、修改引力理论下的数值相对论与引力波天文学相关的问题。",
 
                 // 导航
                 "nav-text": "导航菜单",
@@ -1470,6 +1366,7 @@
                 "contact-desc": "如果您对我的研究或合作感兴趣，欢迎联系",
                 "email": "邮箱",
                 "institution": "机构",
+                "institution-name": "伦敦玛丽女王大学（QMUL），英国",
                 "profiles": "学术档案",
 
                 // 页脚
