@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ao Guo is a theoretical physicist researching strong gravity, numerical relativity, and gravitational waves.">
-    <link rel="canonical" href="https://gravao.github.io/">
-    <meta property="og:title" content="Ao Guo | Strong Gravity &amp; Gravitational Waves">
+    <link rel="canonical" href="https://aoguograv.github.io/">
+    <meta property="og:title" content="Ao Guo | Strong Gravity &amp; Numerical Relativity">
     <meta property="og:description" content="Theoretical physics research in strong gravity, numerical relativity, and gravitational waves.">
-    <meta property="og:url" content="https://gravao.github.io/">
-    <title>Ao Guo | Strong Gravity &amp; Gravitational Waves</title>
+    <meta property="og:url" content="https://aoguograv.github.io/">
+    <title>Ao Guo | Strong Gravity &amp; Numerical Relativity</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
     <style>
@@ -246,6 +246,24 @@
             color: rgba(255, 255, 255, 0.88);
             font-size: 1.12rem;
             line-height: 1.8;
+        }
+
+        .home-intro > p.home-membership {
+            margin-top: 14px;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 1rem;
+        }
+
+        .home-membership a {
+            color: #a9f0f7;
+            text-decoration: underline;
+            text-decoration-color: rgba(169, 240, 247, 0.4);
+            text-underline-offset: 4px;
+            transition: text-decoration-color 0.2s ease;
+        }
+
+        .home-membership a:hover {
+            text-decoration-color: currentColor;
         }
 
         .home-actions {
@@ -780,8 +798,21 @@
             align-items: start;
         }
 
-        .academic-grid .research-card {
+        .academic-grid .research-card,
+        .academic-grid .code-card {
             grid-column: 1 / -1;
+        }
+
+        .code-name {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .code-card .research-desc {
+            max-width: 75ch;
         }
 
         .research-card .research-item {
@@ -844,7 +875,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .academic-grid .research-card {
+            .academic-grid .research-card,
+            .academic-grid .code-card {
                 grid-column: auto;
             }
 
@@ -1034,13 +1066,15 @@
             <div class="home-intro">
                 <p class="home-kicker">AO GUO</p>
                 <h1 data-lang="welcome-title">Welcome to Ao Guo's website.</h1>
-                <div class="title" id="title">Strong Gravity | Gravitational Waves</div>
-                <p id="bio">A PhD student in Mathematics at Queen Mary University of London, researching black hole superradiance, numerical relativity, and their astrophysical implications in gravitational waves.</p>
+                <div class="title" id="title">Strong Gravity | Numerical Relativity</div>
+                <p id="bio">A PhD student in Mathematics at Queen Mary University of London, using numerical relativity to study strong gravity, cosmology, and gravitational waves.</p>
+                <p class="home-membership"><span data-lang="member-pre">Member of the </span><a href="https://www.grtlcollaboration.org/users" target="_blank" rel="noopener noreferrer" data-lang="grtl-collab">GRTL Collaboration</a><span data-lang="member-and"> and the </span><a href="https://simonscbhsg.com/members/" target="_blank" rel="noopener noreferrer" data-lang="simons-collab">Simons Collaboration on Black Holes &amp; Strong Gravity</a><span data-lang="member-post">.</span></p>
                 <div class="home-actions">
 
                     <div class="social-links">
                         <a href="https://inspirehep.net/authors/2630072" target="_blank" rel="noopener noreferrer" aria-label="InspireHEP profile"><i class="fas fa-atom" aria-hidden="true"></i></a>
                         <a href="https://orcid.org/0000-0003-4847-6641" target="_blank" rel="noopener noreferrer" aria-label="ORCID profile"><i class="fab fa-orcid" aria-hidden="true"></i></a>
+                        <a href="https://github.com/AoGuoGrav" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"><i class="fab fa-github" aria-hidden="true"></i></a>
                         <a href="mailto:a.guo@qmul.ac.uk" aria-label="Email Ao Guo"><i class="fas fa-envelope" aria-hidden="true"></i></a>
                     </div>
                 </div>
@@ -1085,7 +1119,7 @@
         <div class="container academic-container">
             <div class="page-header">
                 <h1 data-lang="academic-title">Academic Profile</h1>
-                <p data-lang="academic-desc">Research in black-hole superradiance, gravitational-wave astrophysics, and numerical relativity</p>
+                <p data-lang="academic-desc">Research in numerical relativity, black-hole superradiance, and gravitational-wave astronomy</p>
             </div>
 
             <div class="content-grid academic-grid">
@@ -1128,6 +1162,17 @@
                         </div>
                     </div>
                 </div>
+                <!-- 代码 -->
+                <div class="card code-card">
+                    <h3><span data-lang="code">Code</span></h3>
+                    <div class="code-name">GRTeclyn</div>
+                    <p class="research-desc" data-lang="grteclyn-desc">I am part of the GRTL Collaboration team developing GRTeclyn, the successor to GRChombo. It is an open-source numerical relativity code built on AMReX, with adaptive mesh refinement and GPU acceleration, and it is the main tool I use in my research.</p>
+                    <div class="research-outputs">
+                        <a href="https://github.com/GRTLCollaboration/GRTeclyn" class="publication-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="https://grtlcollaboration.github.io/GRTeclyn/" class="publication-link" target="_blank" rel="noopener noreferrer" data-lang="docs">Documentation</a>
+                        <a href="https://www.grtlcollaboration.org/" class="publication-link" target="_blank" rel="noopener noreferrer" data-lang="grtl-collab">GRTL Collaboration</a>
+                    </div>
+                </div>
                 <!-- 教育背景 -->
                 <div class="card education-card">
                     <h3><span data-lang="education">Education</span></h3>
@@ -1135,25 +1180,26 @@
                         <div class="education-item">
                             <div class="education-period">Sept 2026 - Sept 2030 (expected)</div>
                             <div class="education-degree" data-lang="edu1-degree">PhD in Mathematics</div>
-                            <div class="education-school" data-lang="edu1-school">Queen Mary University of London</div>
+                            <div class="education-school" data-lang="edu1-school">Queen Mary University of London, London, UK</div>
                         </div>
 
                         <div class="education-item">
                             <div class="education-period">Sept 2023 - Jun 2026</div>
                             <div class="education-degree" data-lang="edu2-degree">Master in Theoretical Physics</div>
-                            <div class="education-school" data-lang="edu2-school">International Centre for Theoretical Physics Asia-Pacific</div>
+                            <div class="education-school" data-lang="edu2-school">International Centre for Theoretical Physics Asia-Pacific (ICTP-AP), University of Chinese Academy of Sciences, Beijing, China</div>
                         </div>
 
                         <div class="education-item">
                             <div class="education-period">Sept 2019 - Jun 2023</div>
                             <div class="education-degree" data-lang="edu3-degree">Bachelor in Physics</div>
-                            <div class="education-school" data-lang="edu3-school">Southern University of Science and Technology</div>
+                            <div class="education-school" data-lang="edu3-school">Southern University of Science and Technology, Shenzhen, China</div>
                         </div>
                     </div>
                 </div>
                 <div class="card skills-card">
                     <h3><span data-lang="skills">Coding Skills</span></h3>
                     <div class="skill-tags">
+                        <span class="skill-tag">C++</span>
                         <span class="skill-tag">Mathematica</span>
                         <span class="skill-tag">Python</span>
                         <span class="skill-tag">Matlab</span>
@@ -1186,17 +1232,17 @@
 
                 <div class="card">
                     <h3><span data-lang="swimming">Swimming</span></h3>
-                    <p data-lang="swimming-desc">Swimming keeps me energized and gives me time to reset between research projects.</p>
+                    <p data-lang="swimming-desc">Swimming builds my endurance and helps me stay focused in my research.</p>
                 </div>
 
                 <div class="card">
                     <h3><span data-lang="literature">Literature</span></h3>
-                    <p data-lang="literature-desc">Literature broadens my perspective and remains a quiet counterpoint to technical work.</p>
+                    <p data-lang="literature-desc">Literature broadens my perspective, sharpens my sense of the world, and keeps my mind calm away from technical work.</p>
                 </div>
 
                 <div class="card">
                     <h3><span data-lang="fitness">Fitness</span></h3>
-                    <p data-lang="fitness-desc">Regular training helps me maintain resilience, concentration, and a sustainable rhythm.</p>
+                    <p data-lang="fitness-desc">Regular training helps me reset between stretches of research.</p>
                 </div>
             </div>
         </div>
@@ -1230,6 +1276,8 @@
                     <div class="profile-links">
                         <a href="https://inspirehep.net/authors/2630072" class="publication-link" target="_blank" rel="noopener noreferrer">InspireHEP</a>
                         <a href="https://orcid.org/0000-0003-4847-6641" class="publication-link" target="_blank" rel="noopener noreferrer">ORCID</a>
+                        <a href="https://www.grtlcollaboration.org/users" class="publication-link" target="_blank" rel="noopener noreferrer" data-lang="grtl-members">GRTL Collaboration</a>
+                        <a href="https://simonscbhsg.com/members/" class="publication-link" target="_blank" rel="noopener noreferrer" data-lang="simons-collab">Simons Collaboration on Black Holes &amp; Strong Gravity</a>
                     </div>
                 </div>
             </div>
@@ -1251,8 +1299,8 @@
             en: {
                 // 主页
                 name: "Ao Guo",
-                title: "Strong Gravity | Gravitational Waves",
-                bio: "A PhD student in Mathematics at Queen Mary University of London, researching black hole superradiance, numerical relativity, and their astrophysical implications in gravitational waves.",
+                title: "Strong Gravity | Numerical Relativity",
+                bio: "A PhD student in Mathematics at Queen Mary University of London, using numerical relativity to study strong gravity, cosmology, and gravitational waves.",
 
                 // 导航
                 "nav-text": "Navigation",
@@ -1261,6 +1309,9 @@
                 "home-hobbies": "Hobbies",
                 "home-contact": "Contact",
                 "welcome-title": "Welcome to Ao Guo's website.",
+                "member-pre": "Member of the ",
+                "member-and": " and the ",
+                "member-post": ".",
                 "academic": "Academic",
                 "hobbies": "Hobbies",
                 "contact": "Contact",
@@ -1268,7 +1319,7 @@
 
                 // 学术页面
                 "academic-title": "Academic Profile",
-                "academic-desc": "Research in black-hole superradiance, gravitational-wave astrophysics, and numerical relativity",
+                "academic-desc": "Research in numerical relativity, black-hole superradiance, and gravitational-wave astronomy",
                 "research-projects": "Research Experience",
                 "project1-title": "Superradiant Clouds in Close Compact-Object Binaries",
                 "project1-desc": "Developed analytical models of cloud depletion and resonant transfer in close compact-object binaries. Showed that common-envelope evolution can preserve superradiant clouds into the LISA band and enable non-superradiant objects, such as neutron stars, to host boson clouds.",
@@ -1280,12 +1331,16 @@
                 "project5-desc": "Undergraduate thesis: analyzed scalar and vector tidal perturbations of regular black holes, including the Hayward, Bardeen, and Simpson-Visser metrics.",
                 "education": "Education",
                 "edu1-degree": "PhD in Mathematics",
-                "edu1-school": "Queen Mary University of London",
+                "edu1-school": "Queen Mary University of London, London, UK",
                 "edu2-degree": "Master in Theoretical Physics",
-                "edu2-school": "International Centre for Theoretical Physics Asia-Pacific",
+                "edu2-school": "International Centre for Theoretical Physics Asia-Pacific (ICTP-AP), University of Chinese Academy of Sciences, Beijing, China",
                 "edu3-degree": "Bachelor in Physics",
-                "edu3-school": "Southern University of Science and Technology",
+                "edu3-school": "Southern University of Science and Technology, Shenzhen, China",
                 "skills": "Coding Skills",
+                "code": "Code",
+                "grteclyn-desc": "I am part of the GRTL Collaboration team developing GRTeclyn, the successor to GRChombo. It is an open-source numerical relativity code built on AMReX, with adaptive mesh refinement and GPU acceleration, and it is the main tool I use in my research.",
+                "docs": "Documentation",
+                "grtl-collab": "GRTL Collaboration",
 
                 // 爱好页面
                 "hobbies-title": "Hobbies & Interests",
@@ -1294,11 +1349,11 @@
                 "piano-desc": "I served as president of the campus piano club and performed a piano solo at the 2024 International Congress of Basic Science Physics Night.",
                 "piano-photo-placeholder": "Piano performance photo",
                 "swimming": "Swimming",
-                "swimming-desc": "Swimming keeps me energized and gives me time to reset between research projects.",
+                "swimming-desc": "Swimming builds my endurance and helps me stay focused in my research.",
                 "literature": "Literature",
-                "literature-desc": "Literature broadens my perspective and remains a quiet counterpoint to technical work.",
+                "literature-desc": "Literature broadens my perspective, sharpens my sense of the world, and keeps my mind calm away from technical work.",
                 "fitness": "Fitness",
-                "fitness-desc": "Regular training helps me maintain resilience, concentration, and a sustainable rhythm.",
+                "fitness-desc": "Regular training helps me reset between stretches of research.",
                 // 联系页面
                 "contact-title": "Contact Me",
                 "contact-desc": "If you're interested in my research or collaboration, feel free to reach out",
@@ -1306,6 +1361,8 @@
                 "institution": "Institution",
                 "institution-name": "Queen Mary University of London (QMUL)",
                 "profiles": "Academic Profiles",
+                "grtl-members": "GRTL Collaboration",
+                "simons-collab": "Simons Collaboration on Black Holes & Strong Gravity",
 
                 // 页脚
                 "rights": "All rights reserved"
@@ -1313,8 +1370,8 @@
             zh: {
                 // 主页
                 name: "郭傲",
-                title: "强引力 | 引力波",
-                bio: "伦敦玛丽女王大学数学博士在读，主要研究黑洞超辐射、修改引力理论下的数值相对论与引力波天文学相关的问题。",
+                title: "强引力 | 数值相对论",
+                bio: "伦敦玛丽女王大学数学博士在读，主要利用数值相对论研究强引力、宇宙学和引力波相关的问题。",
 
                 // 导航
                 "nav-text": "导航菜单",
@@ -1323,6 +1380,9 @@
                 "home-hobbies": "兴趣",
                 "home-contact": "联系",
                 "welcome-title": "欢迎来到郭傲的个人主页。",
+                "member-pre": "现为 ",
+                "member-and": "和 ",
+                "member-post": "成员。",
                 "academic": "学术",
                 "hobbies": "爱好",
                 "contact": "联系",
@@ -1330,7 +1390,7 @@
 
                 // 学术页面
                 "academic-title": "学术简介",
-                "academic-desc": "研究黑洞超辐射、引力波天体物理与数值相对论",
+                "academic-desc": "研究数值相对论、黑洞超辐射和引力波天文学",
                 "research-projects": "研究经历",
                 "project1-title": "紧密致密双星系统中的超辐射云",
                 "project1-desc": "建立紧密致密双星中玻色子云耗尽与共振转移的解析模型。研究表明共同包层演化可使超辐射云存留至 LISA 频段，并使中子星等非超辐射天体可能承载玻色子云。",
@@ -1342,12 +1402,16 @@
                 "project5-desc": "本科毕业论文：分析包括 Hayward、Bardeen 和 Simpson-Visser 度规在内的规则黑洞对标量与矢量潮汐扰动的响应。",
                 "education": "教育背景",
                 "edu1-degree": "数学博士",
-                "edu1-school": "伦敦玛丽女王大学，英国",
+                "edu1-school": "伦敦玛丽女王大学，伦敦，英国",
                 "edu2-degree": "理论物理硕士",
-                "edu2-school": "国际理论物理中心亚太分部（ICTP-AP），中国科学院大学，中国",
+                "edu2-school": "国际理论物理中心亚太地区（ICTP-AP），中国科学院大学，北京，中国",
                 "edu3-degree": "物理学学士",
-                "edu3-school": "南方科技大学，中国",
+                "edu3-school": "南方科技大学，深圳，中国",
                 "skills": "编程技能",
+                "code": "代码",
+                "grteclyn-desc": "我参与 GRTL 合作组 GRTeclyn 代码的开发，并在研究中主要使用它。GRTeclyn 是 GRChombo 的下一代版本，基于 AMReX 框架的开源数值相对论代码，支持自适应网格细化和 GPU 加速。",
+                "docs": "文档",
+                "grtl-collab": "GRTL 合作组",
 
                 // 爱好页面
                 "hobbies-title": "兴趣爱好",
@@ -1356,11 +1420,11 @@
                 "piano-desc": "我曾担任校钢琴社社长，并在 2024 年国际基础科学大会 Physics Night 活动中完成钢琴独奏演出。",
                 "piano-photo-placeholder": "钢琴演出照片",
                 "swimming": "游泳",
-                "swimming-desc": "游泳帮助我保持精力，也让我能在研究间隙重新调整状态。",
+                "swimming-desc": "游泳帮助我提高耐力，有助于我在研究的时候保持专注。",
                 "literature": "文学",
-                "literature-desc": "文学拓展我的观察视角，也为技术性工作提供安静的对照。",
+                "literature-desc": "文学拓展我的观察视角，增强我对世界的感知力，也让我在技术工作之余保持心灵的宁静。",
                 "fitness": "健身",
-                "fitness-desc": "规律训练帮助我维持韧性、专注力与可持续的节奏。",
+                "fitness-desc": "规律训练让我能在研究间隙重新调整状态。",
                 // 联系页面
                 "contact-title": "联系我",
                 "contact-desc": "如果您对我的研究或合作感兴趣，欢迎联系",
@@ -1368,6 +1432,8 @@
                 "institution": "机构",
                 "institution-name": "伦敦玛丽女王大学（QMUL），英国",
                 "profiles": "学术档案",
+                "grtl-members": "GRTL 合作组",
+                "simons-collab": "Simons 黑洞与强引力合作组",
 
                 // 页脚
                 "rights": "保留所有权利"
